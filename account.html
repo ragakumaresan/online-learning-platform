@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnova - Online Learning Portal</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #490b3d;
+            color: white;
+            
+           
+            margin: 0 auto;
+            
+          
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative; 
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        
+        .search-bar input[type="text"] {
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            width: 250px;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .buttons button {
+            background-color: #bd1e51;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .buttons button:hover {
+            background-color: #f1b814;
+        }
+
+        /* Quote Box */
+
+        /* Quote Box */
+.quote-box {
+    background-color: transparent;
+    border-radius: 60px;
+    padding: 50px; /* Adjusted padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* Ensures images are properly contained */
+}
+
+.slideshow-container {
+    position: relative;
+    max-width: 100%;
+    height: auto; /* Makes sure the image scales properly */
+}
+
+.mySlides img {
+    max-width: 50%;
+    height: auto;
+    border-radius: 15px; /* To give the images rounded corners inside the box */
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 3px 0 0;
+}
+
+.fade {
+    display: none;
+    animation: fadeEffect 1.5s;
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0.4}
+    to {opacity: 1}
+}
+
+.text {
+    color: #333;
+    font-size: 18px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px 0;
+    border-radius: 10px;
+}
+        
+        
+
+        /* Categories Section */
+        .categories-container {
+            position: relative;
+            overflow: hidden;
+            width: 80%;
+            margin: 20px auto;
+        }
+        .categories {
+            display: flex;
+            padding: 20px 0;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease-in-out;
+            position: relative;
+        }
+
+        .category {
+            cursor: pointer;
+            text-align: center;
+            color: #555;
+            border-bottom: 3px solid transparent;
+            padding: 10px 20px;
+        }
+
+        .category:hover,
+        .category.active {
+            color: #000;
+            border-bottom: 3px solid #007bff;
+        }
+
+        .category span {
+            font-size: 14px;
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #490b3d;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        /* Course Grid Section */
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .course-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: left;
+            transition: transform 0.2s;
+            display: none; /* Hide initially */
+        }
+
+        .course-card.active {
+            display: block; /* Show active courses */
+        }
+
+        .course-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .course-info {
+            padding: 15px;
+        }
+
+        .course-info h3 {
+            font-size: 18px;
+            margin: 0;
+            color: #333;
+        }
+
+        .course-info p {
+            font-size: 14px;
+            color: #777;
+            margin: 10px 0;
+        }
+
+        .course-info .price {
+            font-size: 18px;
+            color: #007bff;
+            margin-top: 10px;
+        }
+
+        .course-info .rating {
+            font-size: 14px;
+            color: #f39c12;
+            margin-top: 5px;
+        }
+ input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 5px; /* Reduced space for better alignment */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .results {
+            display: none; /* Initially hidden */
+            margin-top: 5px; /* Space between input and results */
+            max-height: 150px; /* Maximum height for results */
+            overflow-y: auto; /* Scrollable results */
+            border: 1px solid #ccc; /* Border for visibility */
+            border-radius: 4px; /* Rounded corners */
+            background: white; /* Background color for results */
+            position: absolute; /* Position below the search bar */
+            width: calc(100% - 2px); /* Adjust width for border */
+            z-index: 10; /* Ensure it appears above other elements */
+        }
+
+        .result-item {
+            padding: 10px; /* Padding for result items */
+        }
+
+        .result-item:hover {
+            background-color:#f39c12; /* Light gray on hover */
+            color:black;
+        }
+
+        .course-link {
+            color: black; /* Link color */
+            text-decoration: none; /* No underline */
+        }
+
+        .course-link:hover {
+        
+            text-decoration: none; /* Underline on hover */
+        }
+ a {
+    text-decoration: none;  /* Remove underline */
+    color: inherit;         /* Inherit the text color from the surrounding element */
+}
+
+/* Optional: You can define a hover state if needed */
+a:hover {
+    text-decoration: none;  /* Still no underline on hover */
+    color: inherit;         /* Prevent color change on hover */
+}
+       
+           .user-icon {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            font-size: 30px;
+        }
+
+        /* Dropdown menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* Dropdown menu links */
+        .dropdown-menu a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Hover effect for dropdown items */
+        .dropdown-menu a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Show the dropdown when hovering on the icon */
+        .user-icon:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Learnova</h1>
+        <div class="search-bar">
+            <input type="text" placeholder="Search courses..." id="search-bar">
+           <div id="results" class="results"></div>
+    </div>
+        
+       <div class="user-icon">
+        <!-- Icon can be an image or an icon font (Font Awesome or similar) -->
+        <img src="https://www.unisuregroup.com/wp-content/uploads/2024/08/Policyholders-1.png" alt="User Icon" width="50" height="50">
+        
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu">
+            <a href="myaccount.jsp">My account</a>
+            
+          
+            <a href="support.jsp">Help and Support</a>
+              <a href="logout.jsp">Log Out</a>
+        </div>
+    </div>
+    </div>
+
+<!-- Quote Box -->
+<div class="quote-box">
+    <div class="slideshow-container">
+        <div class="mySlides fade">
+            <img src="https://images.pexels.com/photos/28593055/pexels-photo-28593055/free-photo-of-smiling-children-in-african-classroom-setting.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="width:100%">
+            <div class="text">Education is one thing no one can take way from you.</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="https://images.pexels.com/photos/6147444/pexels-photo-6147444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="width:100%">
+            <div class="text">An investments in knowledge pays the best interest.</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="https://images.pexels.com/photos/7713351/pexels-photo-7713351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="width:100%">
+            <div class="text">The roots of education … are bitter, but the fruit is sweet.</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
+</div>
+
+
+
+
+    <!-- Categories Section -->
+    <div class="categories-container">
+        <div class="categories" id="categories">
+            <div class="category active" data-category="web-development">
+                Web Development
+                <span>3M+ learners</span>
+            </div>
+            <div class="category" data-category="data-science">
+                Data Science
+                <span>2M+ learners</span>
+            </div>
+            <div class="category" data-category="artificial-intelligence">
+                Artificial Intelligence
+                <span>1.5M+ learners</span>
+            </div>
+            <div class="category" data-category="cyber-security">
+                Cyber Security
+                <span>2.5M+ learners</span>
+            </div>
+            <div class="category" data-category="quantitative-aptitude">
+                Quantitative Aptitude
+                <span>1M+ learners</span>
+            </div>
+            <div class="category" data-category="communications">
+                Communications
+                <span>1.2M+ learners</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Courses Grid -->
+    <section class="courses" id="courseGrid">
+        <!-- Web Development Courses -->
+        <div class="course-card active" data-category="web-development">
+   <a href="course.jsp?id=1">
+       
+            <img src="https://img-c.udemycdn.com/course/240x135/1565838_e54e_18.jpg" alt="Course 1">
+            <div class="course-info">
+            
+                <h3>The Complete Javascript Course 2024: From Zero to Expert</h3>
+                <p>Nancy Paul</p>
+                </a>
+                
+            </div>
+        </div>
+
+        <div class="course-card active" data-category="web-development">
+        <a href="course.jsp?id=2">
+            <img src="https://img-c.udemycdn.com/course/240x135/1362070_b9a1_2.jpg" alt="Course 2">
+            <div class="course-info">
+            
+                <h3>Modern React with Redux [2024 Update]</h3>
+                <p>Stephen Grider</p></a>
+            </div>
+        </div>
+
+        <div class="course-card active" data-category="web-development">
+         <a href="course.jsp?id=3">
+            <img src="https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Course 3">
+            <div class="course-info">
+                <h3>Java Programming</h3>
+                <p>Tim Buchalka</p></a>
+            </div>
+        </div>
+
+        <div class="course-card active" data-category="web-development">
+         <a href="course.jsp?id=4">
+            <img src="https://img-c.udemycdn.com/course/240x135/437398_46c3_10.jpg" alt="Course 4">
+            <div class="course-info">
+                <h3>Build Responsive Real World Websites with HTML and CSS</h3>
+                <p>Jonas Schmedtmann</p></a>
+            </div>
+        </div>
+
+        <!-- Data Science Courses -->
+        <div class="course-card" data-category="data-science">
+         <a href="course.jsp?id=5">
+            <img src="https://img-c.udemycdn.com/course/240x135/903744_8eb2.jpg" alt="Data Science Course 1">
+            <div class="course-info">
+                <h3>Python for Data Science and Machine Learning Bootcamp</h3>
+                <p>Jose Portilla</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="data-science">
+         <a href="course.jsp?id=6">
+            <img src="https://img-c.udemycdn.com/course/240x135/1151632_de9b.jpg" alt="Data Science Course 2">
+            <div class="course-info">
+                <h3>Data Science A-Z: Real-Life Data Science Exercises Included</h3>
+                <p>Kirill Eremenko</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="data-science">
+         <a href="course.jsp?id=7">
+            <img src="https://img-c.udemycdn.com/course/240x135/5457418_5f1f_2.jpg" alt="Data Science Course 3">
+            <div class="course-info">
+                <h3>Machine Learning A-Z: Hands-On Python & R In Data Science</h3>
+                <p>Kirill Eremenko</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="data-science">
+         <a href="course.jsp?id=8">
+            <img src="https://img-c.udemycdn.com/course/240x135/3501832_8dbc_3.jpg" alt="Data Science Course 4">
+            <div class="course-info">
+                <h3>Statistics for Data Science and Business Analysis</h3>
+                <p>Yassir Juma</p></a>
+            </div>
+        </div>
+
+        <!-- Artificial Intelligence Courses -->
+        <div class="course-card" data-category="artificial-intelligence">
+         <a href="course.jsp?id=9">
+            <img src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg" alt="AI Course 1">
+            <div class="course-info">
+                <h3>Deep Learning A-Z: Hands-On Artificial Neural Networks</h3>
+                <p>Kirill Eremenko</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="artificial-intelligence">
+         <a href="course.jsp?id=10">
+            <img src="https://images.pexels.com/photos/8438979/pexels-photo-8438979.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="AI Course 2">
+            <div class="course-info">
+                <h3>AI for Everyone</h3>
+                <p>Andrew Ng</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="artificial-intelligence">
+        <a href="course.jsp?id=11">
+            <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="AI Course 3">
+            <div class="course-info">
+                <h3>Natural Language Processing with Deep Learning in Python</h3>
+                <p>Jose Portilla</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="artificial-intelligence">
+        <a href="course.jsp?id=12">
+            <img src="https://images.pexels.com/photos/6153354/pexels-photo-6153354.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="AI Course 4">
+            <div class="course-info">
+                <h3>Machine Learning for Beginners</h3>
+                <p>John Doe</p></a>
+            </div>
+        </div>
+
+        <!-- Cyber Security Courses -->
+        <div class="course-card" data-category="cyber-security">
+        <a href="course.jsp?id=13">
+            <img src="https://images.pexels.com/photos/2036656/pexels-photo-2036656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Cyber Security Course 1">
+            <div class="course-info">
+                <h3>The Complete Cyber Security Course: Hackers Exposed!</h3>
+                <p>Nathan Hunter</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="cyber-security">
+        <a href="course.jsp?id=14">
+            <img src="https://images.pexels.com/photos/39584/censorship-limitations-freedom-of-expression-restricted-39584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Cyber Security Course 2">
+            <div class="course-info">
+                <h3>Cyber Security: A Hands-On Approach</h3>
+                <p>John Doe</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="cyber-security">
+        <a href="course.jsp?id=15">
+            <img src="https://img-c.udemycdn.com/course/240x135/5068642_7d44.jpg" alt="Cyber Security Course 3">
+            <div class="course-info">
+                <h3>Ethical Hacking: A Beginner's Guide</h3>
+                <p>Jane Smith</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="cyber-security">
+        <a href="course.jsp?id=16">
+            <img src="https://img-c.udemycdn.com/course/240x135/2549303_066c.jpg" alt="Cyber Security Course 4">
+            <div class="course-info">
+                <h3>Network Security for Beginners</h3>
+                <p>Michael Johnson</p></a>
+            </div>
+        </div>
+
+        <!-- Quantitative Aptitude Courses -->
+        <div class="course-card" data-category="quantitative-aptitude">
+        <a href="course.jsp?id=17">
+            <img src="https://img-c.udemycdn.com/course/240x135/4883786_f283_5.jpg" alt="Quantitative Aptitude Course 1">
+            <div class="course-info">
+                <h3>Quantitative Aptitude for Competitive Exams</h3>
+                <p>John Doe</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="quantitative-aptitude">
+        <a href="course.jsp?id=18">
+            <img src="https://img-c.udemycdn.com/course/240x135/1245272_9dce_4.jpg" alt="Quantitative Aptitude Course 2">
+            <div class="course-info">
+                <h3>Mastering Data Interpretation</h3>
+                <p>Jane Smith</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="quantitative-aptitude">
+        <a href="course.jsp?id=19">
+            <img src="https://img-c.udemycdn.com/course/240x135/3590400_3fc5_5.jpg" alt="Quantitative Aptitude Course 3">
+            <div class="course-info">
+                <h3>Number Series and Simplification Techniques</h3>
+                <p>Michael Johnson</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="quantitative-aptitude">
+        <a href="course.jsp?id=20">
+            <img src="https://img-c.udemycdn.com/course/240x135/5528838_5342.jpg" alt="Quantitative Aptitude Course 4">
+            <div class="course-info">
+                <h3>Analytical Reasoning</h3>
+                <p>Sarah Brown</p></a>
+            </div>
+        </div>
+
+        <!-- Communications Courses -->
+        <div class="course-card" data-category="communications">
+        <a href="course.jsp?id=21">
+            <img src="https://img-c.udemycdn.com/course/240x135/1551970_1d52_4.jpg" alt="Communications Course 1">
+            <div class="course-info">
+                <h3>Effective Communication Skills for Professionals</h3>
+                <p>David Lee</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="communications">
+        <a href="course.jsp?id=22">
+            <img src="https://images.pexels.com/photos/1181719/pexels-photo-1181719.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Communications Course 2">
+            <div class="course-info">
+                <h3>Business Communication Essentials</h3>
+                <p>Jane Smith</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="communications">
+        <a href="course.jsp?id=23">
+            <img src="https://img-c.udemycdn.com/course/240x135/1802404_48e9_2.jpg" alt="Communications Course 3">
+            <div class="course-info">
+                <h3>Public Speaking and Presentation Skills</h3>
+                <p>John Doe</p></a>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="communications">
+        <a href="course.jsp?id=24">
+            <img src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Communications Course 4">
+            <div class="course-info">
+                <h3>Interpersonal Communication: How to Talk to Anyone</h3>
+                <p>Sarah Brown</p></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2024 StyleSprout Learning. All Rights Reserved.
+    </div>
+
+    <script>
+    
+        
+        const categories = document.querySelectorAll('.category');
+        const courseCards = document.querySelectorAll('.course-card');
+
+        categories.forEach(category => {
+            category.addEventListener('click', () => {
+                categories.forEach(cat => cat.classList.remove('active'));
+                category.classList.add('active');
+                const selectedCategory = category.dataset.category;
+
+                courseCards.forEach(card => {
+                    if (card.dataset.category === selectedCategory || selectedCategory === 'all') {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            const slides = document.getElementsByClassName("mySlides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none"; // Hide all slides
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1} // Reset to first slide
+            slides[slideIndex - 1].style.display = "block"; // Show current slide
+            setTimeout(showSlides, 4000); // Change slide every 4 seconds
+        }
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+ 
+        const courses = {
+                "Web Development": [
+                    { title: "The Complete Javascript Course 2024: From Zero to Expert (Nancy Paul)", url: "https://example.com/javascript" },
+                    { title: "Modern React with Redux [2024 Update] (Stephen Grider)", url: "https://example.com/react" },
+                    { title: "Java Programming (Tim Buchalka)", url: "https://example.com/java" },
+                    { title: "Build Responsive Real World Websites with HTML and CSS (Jonas Schmedtmann)", url: "https://example.com/html-css" }
+                ],
+                "Data Science": [
+                    { title: "Python for Data Science and Machine Learning Bootcamp (Jose Portilla)", url: "https://example.com/python-datascience" },
+                    { title: "Data Science A-Z: Real-Life Data Science Exercises Included (Kirill Eremenko)", url: "https://example.com/datascience-a-z" },
+                    { title: "Machine Learning A-Z: Hands-On Python & R In Data Science (Kirill Eremenko)", url: "https://example.com/machine-learning-a-z" },
+                    { title: "Statistics for Data Science and Business Analysis (Yassir Juma)", url: "https://example.com/statistics" }
+                ],
+                "Artificial Intelligence": [
+                    { title: "Deep Learning A-Z: Hands-On Artificial Neural Networks (Kirill Eremenko)", url: "https://example.com/deep-learning" },
+                    { title: "AI for Everyone (Andrew Ng)", url: "https://example.com/ai-for-everyone" },
+                    { title: "Natural Language Processing with Deep Learning in Python (Jose Portilla)", url: "https://example.com/nlp" },
+                    { title: "Machine Learning for Beginners (John Doe)", url: "https://example.com/ml-beginners" }
+                ],
+                "Cyber Security": [
+                    { title: "The Complete Cyber Security Course: Hackers Exposed! (Nathan Hunter)", url: "https://example.com/cybersecurity" },
+                    { title: "Cyber Security: A Hands-On Approach (John Doe)", url: "https://example.com/cyber-security-hands-on" },
+                    { title: "Ethical Hacking: A Beginner's Guide (Jane Smith)", url: "https://example.com/ethical-hacking" },
+                    { title: "Network Security for Beginners (Michael Johnson)", url: "https://example.com/network-security" }
+                ],
+                "Quantitative Aptitude": [
+                    { title: "Quantitative Aptitude for Competitive Exams (John Doe)", url: "https://example.com/quantitative-aptitude" },
+                    { title: "Mastering Data Interpretation (Jane Smith)", url: "https://example.com/data-interpretation" },
+                    { title: "Number Series and Simplification Techniques (Michael Johnson)", url: "https://example.com/number-series" },
+                    { title: "Analytical Reasoning (Sarah Brown)", url: "https://example.com/analytical-reasoning" }
+                ],
+                "Communications": [
+                    { title: "Effective Communication Skills for Professionals (David Lee)", url: "https://example.com/effective-communication" },
+                    { title: "Business Communication Essentials (Jane Smith)", url: "https://example.com/business-communication" },
+                    { title: "Public Speaking and Presentation Skills (John Doe)", url: "https://example.com/public-speaking" },
+                    { title: "Interpersonal Communication: How to Talk to Anyone (Sarah Brown)", url: "https://example.com/interpersonal-communication" }
+                ]
+            };
+
+            const searchBar = document.getElementById('search-bar');
+            const resultsDiv = document.getElementById('results');
+
+            searchBar.addEventListener('input', () => {
+                const query = searchBar.value.toLowerCase();
+                resultsDiv.innerHTML = ''; // Clear previous results
+
+                let hasResults = false;
+
+                for (const category in courses) {
+                    if (category.toLowerCase().includes(query)) {
+                        const categoryHeader = document.createElement('strong');
+                        categoryHeader.textContent = category;
+                        resultsDiv.appendChild(categoryHeader);
+
+                        courses[category].forEach(course => {
+                            const courseLink = document.createElement('div');
+                            courseLink.classList.add('result-item');
+                            courseLink.innerHTML = `<a class="course-link" href="${course.url}" target="_blank">${course.title}</a>`;
+                            resultsDiv.appendChild(courseLink);
+                        });
+                        hasResults = true;
+                    } else {
+                        const filteredCourses = courses[category].filter(course =>
+                            course.title.toLowerCase().includes(query)
+                        );
+
+                        if (filteredCourses.length > 0) {
+                            const categoryHeader = document.createElement('strong');
+                            categoryHeader.textContent = category;
+                            resultsDiv.appendChild(categoryHeader);
+
+                            filteredCourses.forEach(course => {
+                                const courseLink = document.createElement('div');
+                                courseLink.classList.add('result-item');
+                                courseLink.innerHTML = `<a class="course-link" href="${course.url}" target="_blank">${course.title}</a>`;
+                                resultsDiv.appendChild(courseLink);
+                            });
+                            hasResults = true;
+                        }
+                    }
+                }
+
+                if (!hasResults) {
+                    const noResultsMessage = document.createElement('div');
+                    noResultsMessage.classList.add('no-results');
+                    noResultsMessage.textContent = 'No results found';
+                    resultsDiv.appendChild( noResultsMessage);
+                }
+
+                resultsDiv.style.display = hasResults ? 'block' : 'none';
+            });
+
+            // Hide results when clicking outside of the search bar
+            document.addEventListener('click', (event) => {
+                if (!event.target.closest('.container')) {
+                    resultsDiv.style.display = 'none'; // Hide results
+                }
+            });
+    </script>
+</body>
+</html>
