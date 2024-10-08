@@ -1,0 +1,207 @@
+use education;
+CREATE TABLE user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    dob DATE NOT NULL
+);
+
+CREATE TABLE wishlist (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    course_name VARCHAR(100) NOT NULL,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE SET NULL
+);
+CREATE TABLE my_learning (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    course_name VARCHAR(255) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+
+CREATE TABLE questions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    course_name VARCHAR(255),
+    question TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id) -- Adjust based on your user table
+);
+
+CREATE TABLE user_courses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    course_name VARCHAR(255),
+    progress INT,
+    FOREIGN KEY (user_id) REFERENCES user(id),
+lesson_name VARCHAR(255)
+);
+CREATE TABLE notes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    course_name VARCHAR(255) NOT NULL,
+    note TEXT,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+CREATE TABLE user_security (
+    user_id INT,
+    security_question VARCHAR(255),
+    security_answer VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+-- Create the courses table
+CREATE TABLE courses (
+    course_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_name VARCHAR(255) NOT NULL,
+    instructor VARCHAR(255) NOT NULL,
+    image_url VARCHAR(255),
+    description TEXT,
+    requirements TEXT,
+    outcomes TEXT
+);
+
+-- Insert a course into the courses table
+INSERT INTO courses (course_name, instructor, image_url, description, requirements, outcomes)
+VALUES (
+    'The Complete JavaScript Course 2024: From Zero to Expert',
+    'John Doe',
+    'https://img-c.udemycdn.com/course/240x135/1565838_e54e_18.jpg',  -- Replace with your actual image URL
+    'This comprehensive course teaches you everything you need to know about JavaScript, from the basics to advanced topics.',
+    'Basic computer literacy and understanding of HTML and CSS.',
+    'By the end of this course, you will be able to create interactive web applications using JavaScript and understand modern JavaScript practices.'
+);
+
+use education;
+CREATE TABLE user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    dob DATE NOT NULL
+);
+
+CREATE TABLE wishlist (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    course_name VARCHAR(100) NOT NULL,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE SET NULL
+);
+CREATE TABLE my_learning (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    course_name VARCHAR(255) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+
+CREATE TABLE questions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    course_name VARCHAR(255),
+    question TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id) -- Adjust based on your user table
+);
+
+CREATE TABLE user_courses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    course_name VARCHAR(255),
+    progress INT,
+    FOREIGN KEY (user_id) REFERENCES user(id),
+lesson_name VARCHAR(255)
+);
+CREATE TABLE notes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    course_name VARCHAR(255) NOT NULL,
+    note TEXT,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+CREATE TABLE user_security (
+    user_id INT,
+    security_question VARCHAR(255),
+    security_answer VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);
+CREATE TABLE courses (
+    course_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_name VARCHAR(255) NOT NULL,
+    instructor VARCHAR(255) NOT NULL,
+    image_url VARCHAR(255),
+    description TEXT,
+    requirements TEXT,
+    outcomes TEXT
+);
+CREATE TABLE lessons (
+    lesson_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT NOT NULL,
+    lesson_title VARCHAR(255) NOT NULL,
+    lesson_description TEXT,
+    lesson_order INT NOT NULL,
+    lesson_objective TEXT,
+    lesson_topics TEXT,
+    lesson_project TEXT,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+);
+
+-- Insert first lesson
+INSERT INTO lessons (course_id, lesson_title, lesson_description, lesson_order, lesson_objective, lesson_topics, lesson_project)
+VALUES (
+    1,
+    'Introduction to Programming',
+    'This lesson provides a comprehensive overview of programming concepts, including the history of programming languages, essential terminology, and how programming is applied in real-world scenarios.',
+    1,
+    ' Understand the basics of programming. Identify various programming languages. Explore how programming is used in different industries.Develop problem-solving skills.',
+    'History of Programming Languages. Basic Terminology (Syntax, Semantics). Application of Programming.Introduction to Algorithms.Importance of Programming in Technology.',
+    'Create a simple program that prints "Hello, World!" to the console. Design a flowchart to illustrate the logic of your program. Discuss how algorithms help in problem-solving. Prepare a short presentation on a programming language of your choice.'
+);
+
+-- Insert second lesson
+
+CREATE TABLE lessons (
+    lesson_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT NOT NULL,
+    lesson_title VARCHAR(255) NOT NULL,
+    lesson_description TEXT,
+    lesson_order INT NOT NULL,
+    lesson_objective TEXT,
+    lesson_topics TEXT,
+    lesson_project TEXT,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+);
+
+-- Insert first lesson
+INSERT INTO lessons (course_id, lesson_title, lesson_description, lesson_order, lesson_objective, lesson_topics, lesson_project)
+VALUES (
+    1,
+    'Introduction to Programming',
+    'This lesson provides a comprehensive overview of programming concepts, including the history of programming languages, essential terminology, and how programming is applied in real-world scenarios.',
+    1,
+    ' Understand the basics of programming. Identify various programming languages. Explore how programming is used in different industries.Develop problem-solving skills.',
+    'History of Programming Languages. Basic Terminology (Syntax, Semantics). Application of Programming.Introduction to Algorithms.Importance of Programming in Technology.',
+    'Create a simple program that prints "Hello, World!" to the console. Design a flowchart to illustrate the logic of your program. Discuss how algorithms help in problem-solving. Prepare a short presentation on a programming language of your choice.'
+);
+
+
+drop table lessons;
+
+CREATE TABLE lesson_videos (
+    video_id INT AUTO_INCREMENT PRIMARY KEY,
+    lesson_id INT NOT NULL,
+    video_url VARCHAR(255) NOT NULL,
+    FOREIGN KEY (lesson_id) REFERENCES lessons(lesson_id) ON DELETE CASCADE
+);
+
+
+INSERT INTO lesson_videos (lesson_id, video_url) VALUES
+(82, 'https://youtube.com/embed/your_code');
